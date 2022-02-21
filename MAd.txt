@@ -1,0 +1,939 @@
+Tw1
+
+package com.example.tw1;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    float f=30;
+    int ch=1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView t =(TextView)findViewById(R.id.textView);
+        Button b1 =(Button)findViewById(R.id.button);
+        Button b2 =(Button)findViewById(R.id.button2);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                t.setTextSize(f);
+                f=f+5;
+                if(f==50)
+                {
+                    f=30;
+                }
+
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch(ch){
+                    case 1 :t.setTextColor(Color.BLUE);
+                        break;
+
+                    case 2 :t.setTextColor(Color.MAGENTA);
+                        break;
+
+                    case 3 :t.setTextColor(Color.GREEN);
+                        break;
+
+                    case 4 :t.setTextColor(Color.BLACK);
+                        break;
+
+                    case 5 :t.setTextColor(Color.RED);
+                        break;
+                }
+                ch++;
+                if(ch==6){
+                    ch=1;
+                }
+            }
+        });
+    }
+}
+
+Tw1 Xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="50dp"
+    android:paddingLeft="50dp"
+    android:paddingTop="50dp"
+    android:paddingEnd="50dp"
+    android:paddingRight="50dp"
+    android:paddingBottom="50dp"
+    tools:context=".MainActivity"
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.144" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="147dp"
+        android:layout_height="wrap_content"
+        android:text="Change Size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.679" />
+
+</LinearLayout>
+
+------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Tw2
+
+MainActivity
+
+package com.example.tw2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+public class MainActivity extends AppCompatActivity {
+    String[] dept_array={"CSE","MECH","CIVIL","EC","EE"};
+    String Name,Reg,Dept;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+    EditText e1 =(EditText)findViewById(R.id.edit1);
+    EditText e2 =(EditText)findViewById(R.id.edit2);
+
+    Button b=(Button)findViewById(R.id.button);
+
+    Spinner s= (Spinner)findViewById(R.id.spinner);
+
+    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_spinner_item,dept_array);
+    s.setAdapter(adapter);
+
+    b.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Name=e1.getText().toString();
+            Reg=e2.getText().toString();
+            Dept=s.getSelectedItem().toString();
+
+
+            Intent i=new Intent(MainActivity.this,MainActivity2.class);
+            i.putExtra("Name_key",Name);
+            i.putExtra("Reg_key",Reg);
+            i.putExtra("Dept_key",Dept);
+
+            startActivity(i);
+        }
+    });
+
+    }
+}
+
+MainActivity Xml Code
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Detail Form"
+            android:textSize="30sp"
+            />
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="103dp"
+        android:layout_marginBottom="322dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:paddingStart="10dp"
+            android:text="Name :"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:paddingStart="10dp"
+            android:text="Reg     :"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:paddingStart="10sp"
+            android:text="Dept    :"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_width="307dp"
+            android:layout_height="63dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="298dp"
+            android:layout_height="57dp"
+            android:layout_row="2"
+            android:layout_column="1" />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="141dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="415dp"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="257dp"
+        android:text="Submit" />
+
+</RelativeLayout>
+
+MainActivity2
+
+package com.example.tw2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity2 extends AppCompatActivity {
+
+    String Name,Reg,Dept;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+
+    TextView t1=(TextView)findViewById(R.id.text4);
+    TextView t2=(TextView)findViewById(R.id.text5);
+    TextView t3=(TextView)findViewById(R.id.text6);
+
+    Intent i=getIntent();
+
+    Name=i.getStringExtra("Name_key");
+    Reg=i.getStringExtra("Reg_key");
+    Dept=i.getStringExtra("Dept_key");
+
+    t1.setText(Name);
+    t2.setText(Reg);
+    t3.setText(Dept);
+
+    }
+}
+
+MainActivity2 Xml Code
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity2"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="224dp" />
+
+    <TextView
+        android:id="@+id/text6"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="347dp" />
+</LinearLayout>
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+TW3
+
+package com.example.tw3;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity implements OnClickListener {
+    EditText Num1,Num2;
+    Button ADD,SUB,MUL,DIV;
+    TextView RESULT;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Num1=(EditText)findViewById(R.id.NUM1);
+        Num2=(EditText)findViewById(R.id.NUM2);
+        ADD=(Button)findViewById(R.id.Add);
+        SUB=(Button)findViewById(R.id.Sub);
+        MUL=(Button)findViewById(R.id.Mul);
+        DIV=(Button)findViewById(R.id.Div);
+        RESULT=(TextView)findViewById(R.id.Result);
+
+        ADD.setOnClickListener(this);
+        SUB.setOnClickListener(this);
+        MUL.setOnClickListener(this);
+        DIV.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v){
+        float num1=0;
+        float num2=0;
+        float result=0;
+        String oper="";
+
+        if(TextUtils.isEmpty(Num1.getText().toString())||TextUtils.isEmpty(Num2.getText().toString()))
+            return;
+
+        num1=Float.parseFloat(Num1.getText().toString());
+        num2=Float.parseFloat(Num2.getText().toString());
+
+        switch(v.getId())
+        {
+            case R.id.Add:
+                oper="+";
+                result=num1+num2;
+                break;
+
+            case R.id.Sub:
+                oper="-";
+                result=num1-num2;
+                break;
+
+            case R.id.Mul:
+                oper="*";
+                result=num1*num2;
+                break;
+
+            case R.id.Div:
+                oper="/";
+                result=num1/num2;
+                break;
+
+            default:break;
+
+        }
+        RESULT.setText(num1+""+oper+""+num2+"="+result);
+
+    }
+}
+
+
+Xml Code
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:gravity="center"
+        android:text="Calculator"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="94dp">
+
+
+        <EditText
+            android:id="@+id/NUM1"
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/NUM2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <Button
+            android:id="@+id/Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ADD" />
+
+        <Button
+            android:id="@+id/Sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SUB" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/Mul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MUL" />
+
+        <Button
+            android:id="@+id/Div"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DIV" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Result"
+            android:layout_width="365dp"
+            android:layout_height="509dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Result"
+            android:textSize="34sp" />
+    </LinearLayout>
+
+</LinearLayout>
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Tw4
+
+package com.example.tw4;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.database.Cursor;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button INSERT,DELETE,UPDATE,VIEW,VIEWALL;
+    EditText ROLLNO,NAME,MARKS;
+    SQLiteDatabase db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ROLLNO =(EditText)findViewById(R.id.Rollno);
+        NAME =(EditText)findViewById(R.id.Name);
+        MARKS=(EditText)findViewById(R.id.Marks);
+
+        INSERT=(Button) findViewById(R.id.Insert);
+        DELETE=(Button)findViewById(R.id.Delete);
+        UPDATE=(Button) findViewById(R.id.Update);
+        VIEW=(Button) findViewById(R.id.View);
+        VIEWALL=(Button) findViewById(R.id.Viewall);
+
+        INSERT.setOnClickListener(this);
+        DELETE.setOnClickListener(this);
+        UPDATE.setOnClickListener(this);
+        VIEW.setOnClickListener(this);
+        VIEWALL.setOnClickListener(this);
+
+        db=openOrCreateDatabase("StudentDB", Context.MODE_PRIVATE,null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS student(rollno VARCHAR,name VARCHAR,marks VARCHAR)");
+
+    }
+    public void onClick(View v){
+
+        if(v==INSERT) {
+            if (ROLLNO.getText().toString().trim().length() == 0 || NAME.getText().toString().trim().length() == 0 || MARKS.getText().toString().trim().length() == 0) {
+                showMessage("Error", "Enter All The Values");
+                return;
+            }
+            db.execSQL("INSERT INTO student VALUES('" + ROLLNO.getText() + "','" + NAME.getText() + "','" + MARKS.getText() + "')");
+            showMessage("Success", "Record Inserted");
+            clearText();
+        }
+
+        if(v==DELETE)
+        {
+           if(ROLLNO.getText().toString().trim().length()==0)
+           {
+               showMessage("Error","Enter Rollno");
+               return;
+           }
+           Cursor c=db.rawQuery("SELECT * FROM student WHERE rollno ='"+ROLLNO.getText()+"'",null);
+           if(c.moveToFirst()){
+               db.execSQL("DELETE FROM student WHERE rollno='"+ROLLNO.getText()+"'");
+               showMessage("Success","Record Deleted");
+           }
+           else{
+               showMessage("Error","Invalid Rollno");
+               return;
+           }
+           clearText();
+        }
+
+
+        if(v==UPDATE) {
+            if (ROLLNO.getText().toString().trim().length() == 0) {
+                showMessage("Error", "Enter Rollno");
+                return;
+            }
+            Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno ='" + ROLLNO.getText() + "'", null);
+            if (c.moveToFirst()) {
+                db.execSQL("UPDATE student SET name='"+NAME.getText()+"',marks='"+MARKS.getText()+"' WHERE rollno='"+ROLLNO.getText()+"'");
+                showMessage("Success","Record Updated");
+            }
+            else{
+                showMessage("Error","Invalid Rollno");
+                return;
+            }
+            clearText();
+        }
+
+        if(v==VIEW)
+        {
+            if (ROLLNO.getText().toString().trim().length() == 0) {
+                showMessage("Error", "Enter Rollno");
+                return;
+            }
+            Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno ='" + ROLLNO.getText() + "'", null);
+            if (c.moveToFirst()) {
+                NAME.setText(c.getString(1));
+                MARKS.setText(c.getString(2));
+            }
+            else {
+                showMessage("Error", "Invalid Rollno");
+                clearText();
+            }
+        }
+
+        if(v==VIEWALL)
+        {
+            StringBuffer buffer=new StringBuffer();
+            Cursor c =db.rawQuery("SELECT * FROM student",null);
+            if(c.getCount()==0){
+                showMessage("Error","No Record Found");
+                return;
+            }
+            while(c.moveToNext())
+            {
+                buffer.append("Rollno :"+c.getString(0)+"\n");
+                buffer.append("Name :"+c.getString(1)+"\n");
+                buffer.append("Marks"+c.getString(2)+"\n\n");
+            }
+            showMessage("Student Details",buffer.toString());
+        }
+
+    }
+
+    public void showMessage(String title,String message){
+        Builder b=new Builder(this);
+        b.setCancelable(true);
+        b.setTitle(title);
+        b.setMessage(message);
+        b.show();
+    }
+
+    public void clearText(){
+        ROLLNO.setText("");
+        NAME.setText("");
+        MARKS.setText("");
+        ROLLNO.requestFocus();
+
+    }
+
+}
+
+Xml code
+
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="90dp"
+        android:layout_y="30dp"
+        android:text="Student Details"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="34dp"
+        android:layout_y="104dp"
+        android:text="Roll No :"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="36dp"
+        android:layout_y="153dp"
+        android:text="Name :"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="34dp"
+        android:layout_y="200dp"
+        android:text="Marks :"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/Rollno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="124dp"
+        android:layout_y="95dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="122dp"
+        android:layout_y="140dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Marks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="122dp"
+        android:layout_y="192dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/Insert"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_x="48dp"
+        android:layout_y="288dp"
+        android:text="INSERT" />
+
+    <Button
+        android:id="@+id/Delete"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_x="220dp"
+        android:layout_y="293dp"
+        android:text="DELETE" />
+
+    <Button
+        android:id="@+id/Update"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_x="127dp"
+        android:layout_y="427dp"
+        android:text="UPDATE" />
+
+    <Button
+        android:id="@+id/View"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_x="36dp"
+        android:layout_y="549dp"
+        android:text="VIEW" />
+
+    <Button
+        android:id="@+id/Viewall"
+        android:layout_width="119dp"
+        android:layout_height="wrap_content"
+        android:layout_x="240dp"
+        android:layout_y="555dp"
+        android:text="VIEWALL" />
+
+</AbsoluteLayout>
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Tw5
+
+MainActivity
+
+package com.example.tw5pract;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends AppCompatActivity {
+    Button bt;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        bt=(Button) findViewById(R.id.button);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NotificationCompat.Builder b =new NotificationCompat.Builder(MainActivity.this,"My Notificationn");
+                b.setContentTitle("My Notification");
+                b.setContentText("Welcome to my world");
+                b.setAutoCancel(true);
+                b.setSmallIcon(R.drawable.ic_launcher_background);
+                b.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                Intent i = new Intent(MainActivity.this,MainActivity2.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("message","Welcome to my world");
+                PendingIntent pI =PendingIntent.getActivity(MainActivity.this,0,i,PendingIntent.FLAG_UPDATE_CURRENT);
+                b.setContentIntent(pI);
+                NotificationManagerCompat m=NotificationManagerCompat.from(MainActivity.this);
+                m.notify(1,b.build());
+
+            }
+        });
+
+    }
+}
+
+MainActivity Xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notify"
+        tools:layout_editor_absoluteX="128dp"
+        tools:layout_editor_absoluteY="105dp" />
+
+</RelativeLayout>
+
+
+MainActivity2
+
+package com.example.tw5pract;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity2 extends AppCompatActivity {
+    TextView t;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        t=(TextView) findViewById(R.id.textView);
+        Intent i=getIntent();
+        String m=i.getStringExtra("message");
+        t.setText(m);
+    }
+}
+
+MainActivity2 Xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="105dp" />
+</RelativeLayout>
